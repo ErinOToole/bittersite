@@ -57,7 +57,7 @@ if(!isset($_SESSION["SESS_MEMBER_ID"])){
   </head>
 
   <body>
-      <?php include("Includes/header.php");?>
+      <?php include("includes/header.php");?>
       <BR><BR>
     <div class="container">
 		<div class="row">

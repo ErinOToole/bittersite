@@ -1,6 +1,5 @@
-<?php include ("connect.php");?>
-
 <?php
+include("connect.php");
 session_start();
 
 //Grab the id and screen name of the user that the logged in user is following

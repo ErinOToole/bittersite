@@ -1,26 +1,37 @@
-<?php include ("connect.php");?>
 <?php
+include ("connect.php");
 $userID = $_SESSION["SESS_MEMBER_ID"];
 
-$sql = "Select first_name, last_name, screen_name, user_id FROM users"; //grab the first, last and screenname of everyone
+//refactored code, got rid of while loops and used an inner join for sql statement. 
+//fixed issue where all user's tweets were showing up.
+$sql = "Select users.first_name, users.last_name, users.screen_name, users.user_id, tweets.tweet_id, tweets.tweet_text, tweets.original_tweet_id, tweets.reply_to_tweet_id, tweets.date_created "
+        . "FROM users INNER JOIN tweets ON users.user_id = tweets.user_id "
+        . "WHERE tweets.user_id = '$userID' OR tweets.user_id IN (SELECT to_id FROM follows WHERE from_id = '$userID')"
+        . " ORDER BY tweets.date_created DESC";
 $result = mysqli_query($con, $sql);
 date_default_timezone_set("America/Halifax"); //set the date and timezone
 
-while($row = mysqli_fetch_array($result)){ //get everyone's tweets using their userIDs
-    $profileID = $row["user_id"];
-    $sqltweets = "SELECT tweet_text, date_created FROM TWEETS WHERE user_id = '$profileID'";
-    $resulttweets = mysqli_query($con, $sqltweets);
+while($row = mysqli_fetch_array($result)){
+    //put all user information into variables
+    $userTweetID = $row["user_id"];
+    $tweetFirstName = $row["first_name"];
+    $tweetLastName = $row["last_name"];
+    $tweetScreenName = $row["screen_name"];
+    $tweet = $row["tweet_text"];
+    $tweetDate = new dateTime($row["date_created"]);
     
-    //if the date stuff looks similar to Aude's it's because she helped me! 
-    while($rowPrint = mysqli_fetch_array($resulttweets)){ //echo out the tweets to the homepage
-        $date = new dateTime($rowPrint['date_created']);
-        $today = new dateTime("now");
-        $interval = $date->diff($today);
-        echo '<div style="color: blue">'.$row["first_name"] . '' . $row["last_name"] . " @" . $row["screen_name"]. '</div>';
-        echo '<i>'.$interval->format("%a days ago").'</i>';
-        echo '<br>' . $rowPrint["tweet_text"] . '<br>';
-        echo '<BR><img class="smallicon" src="images/like.ico">' . '<img class="smallicon" src="images/retweet.png">' . '<BR><HR>';
+    echo '<div style="color: blue">'. $tweetFirstName . '' . $tweetLastName . " @" . $tweetScreenName . '</div>';
+    echo '<br>' . $tweet . '<br>';
+    echo '<BR><img class="smallicon" src="images/like.ico">' . '<img class="smallicon" src="images/retweet.png">' . '<BR><HR>';
+    //figure out dates
     }
-}
+    
+    function time_elapsed($date){
+        $now = new DateTime;
+        $ago = new DateTime($date);
+        $diff = $now->diff($ago);
+        
+    }
+
 ?>
 

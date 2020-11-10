@@ -1,5 +1,13 @@
 <?php
-    echo "<nav class=\"navbar navbar-toggleable-md navbar-inverse bg-inverse fixed-top\">
+if(isset($_SESSION["SESS_PROFILE_PIC"])){
+    $picture = "images/profilepics/" . $_SESSION["SESS_PROFILE_PIC"]; //if the profile picture session variable is set, then it will be displayed
+    
+}
+else{
+    $picture = "images/profilepics/default.jfif"; //if it is not set, then the default image will display
+}
+
+echo "<nav class=\"navbar navbar-toggleable-md navbar-inverse bg-inverse fixed-top\">
       <button class=\"navbar-toggler navbar-toggler-right\" type=\"button\" data-toggle=\"collapse\" data-target=\"#navbarsExampleDefault\" aria-controls=\"navbarsExampleDefault\" aria-expanded=\"false\" aria-label=\"Toggle navigation\">
         <span class=\"navbar-toggler-icon\"></span>
       </button>
@@ -36,7 +44,7 @@
         </ul>
 		<li class=\"nav-item dropdown right\">
             <a class=\"nav-link dropdown-toggle\" id=\"dropdown01\" data-toggle=\"dropdown\" aria-haspopup=\"true\" aria-expanded=\"false\">
-			<img class=\"bannericons\" src=\"images/profilepics/default.jfif\">
+			<img class=\"bannericons\" src= $picture>
 			</a>
             <div class=\"dropdown-menu\" aria-labelledby=\"dropdown01\">
               <a class=\"dropdown-item\" href=\"logout.php\">Logout</a>
