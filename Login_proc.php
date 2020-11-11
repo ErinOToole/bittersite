@@ -23,7 +23,7 @@ if(password_verify($passWord, $myHash)){
     $_SESSION["SESS_MEMBER_ID"] = $rowUser["user_id"];
     $userID = $_SESSION["SESS_MEMBER_ID"]; //putting the user_id into a variable so it is easier to concatenate in the sql string
     
-    //check to see if the profile picture field for the user is empty in the database
+    //grab the profile picture for the user from the db, only if it isn't empty
     $sqlPic = "SELECT profile_pic FROM users where user_id = '$userID' AND profile_pic != ''"; 
     
     $resultPic = mysqli_query($con, $sqlPic);

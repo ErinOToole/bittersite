@@ -18,20 +18,43 @@ while($row = mysqli_fetch_array($result)){
     $tweetLastName = $row["last_name"];
     $tweetScreenName = $row["screen_name"];
     $tweet = $row["tweet_text"];
-    $tweetDate = new dateTime($row["date_created"]);
     
-    echo '<div style="color: blue">'. $tweetFirstName . '' . $tweetLastName . " @" . $tweetScreenName . '</div>';
+    $now = new DateTime;
+    $tweetDate = new dateTime($row["date_created"]);
+    $diff = $now->diff($tweetDate);
+    
+    
+    echo '<div class="mainprofile">'. formatText($tweetFirstName, $tweetLastName,$tweetScreenName);
     echo '<br>' . $tweet . '<br>';
+    echo formatTime($diff);
     echo '<BR><img class="smallicon" src="images/like.ico">' . '<img class="smallicon" src="images/retweet.png">' . '<BR><HR>';
+    echo '</div>';
     //figure out dates
     }
     
-    function time_elapsed($date){
-        $now = new DateTime;
-        $ago = new DateTime($date);
-        $diff = $now->diff($ago);
-        
+    function formatText($tweetFirstName, $tweetLastName, $tweetScreenName){
+    $formattedString = $tweetFirstName . ' ' . $tweetLastName . ' ' . '<strong>@' .$tweetScreenName . '</strong><br>';
+    return $formattedString;
     }
+    
+    function formatTime($diff){
+        if($diff->y>1) echo $diff->format("%y years") ." ago<BR>";
+    elseif($diff->y >0) echo $diff->format("%y year") ." ago<BR>";
+    elseif($diff->m >1) echo $diff->format("%m months") ." ago<BR>";
+    elseif($diff->m >0) echo $diff->format("%m month") ." ago<BR>";
+    elseif($diff->d >1) echo $diff->format("%d days") ." ago<BR>";
+    elseif($diff->d >0) echo $diff->format("%d day") ." ago<BR>";
+    elseif($diff->h >1) echo $diff->format("%h hours") ." ago<BR>";
+    elseif($diff->h >0) echo $diff->format("%h h") ." ago<BR>";
+    elseif($diff->i >1) echo $diff->format("%i minutes") ." ago<BR>";
+    elseif($diff->i >0) echo $diff->format("%i minute") ." ago<BR>";
+    elseif($diff->s >1) echo $diff->format("%s seconds") ." ago<BR>";
+    elseif($diff->s >0) echo $diff->format("%s second") ." ago<BR>";
+    }
+    
+        
+        
+    
 
 ?>
 

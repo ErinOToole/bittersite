@@ -11,7 +11,7 @@ if(isset($_POST["button"])){
     
     $sql = "INSERT INTO tweets (tweet_text, user_id) VALUES ('$tweet', '$userID')";
     
-    if($tweet != " "){
+    if($tweet != ""){ //need to use !empty?
         mysqli_query($con, $sql); //only want to put tweets in the db that are not blank
         
         if(mysqli_affected_rows($con)==1){

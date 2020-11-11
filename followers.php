@@ -40,9 +40,3 @@ while($rowFollowers = mysqli_fetch_array($result)){
   
     
 }
-
-//function to format first name, last name and username
-function formatText($firstName, $lastName, $userName){
-    $formattedString = $firstName . ' ' . $lastName . ' ' . '<strong>@' .$userName . '</strong><br>';
-    return $formattedString;
-}
