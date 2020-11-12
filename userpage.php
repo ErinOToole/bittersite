@@ -1,5 +1,10 @@
 <?php
-//displays all the details for a particular Bitter user
+include("includes/classes/user.php");
+include("includes/classes/tweet.php");
+if(isset($_GET["userID"])){
+    User::FindUser($_GET["userID"]);
+    $up = $_SESSION["USERPAGE_INFO"];
+}
 ?>
 
 <!DOCTYPE html>
@@ -32,16 +37,16 @@
 			<div class="col-md-3">
 				<div class="mainprofile img-rounded">
 				<div class="bold">
-				<img class="bannericons" src="images/profilepics/default.jfif">
-				Jimmy Jones<BR></div>
+				<img class="bannericons" src=<?php echo "images/profilepics/" . User::GetProfilePic($up->userID) ?>>
+				<?php echo $up->firstName . " " . $up->lastName?><BR></div>
 				<table>
 				<tr><td>
 				tweets</td><td>following</td><td>followers</td></tr>
-				<tr><td>0</td><td>0</td><td>0</td>
+				<tr><td><?php Tweet::GetNoOfTweets($up->userID) ?></td><td><?php User::GetNoOfFollowing($up->userID)?></td><td><?php User::GetNoOfFollowers($up->userID) ?></td>
 				</tr></table>
-				<img class="icon" src="images/location_icon.jpg">New Brunswick
+				<img class="icon" src="images/location_icon.jpg"><?php echo $up->location?>
 				<div class="bold">Member Since:</div>
-				<div>jan 1, 2001</div>
+				<div><?php $date = date_create($up->dateAdded); echo date_format($date, "m/d/Y") ?></div>
 				</div><BR><BR>
 				
 				<div class="trending img-rounded">

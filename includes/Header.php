@@ -1,10 +1,8 @@
 <?php
-if(isset($_SESSION["SESS_PROFILE_PIC"])){
-    $picture = "images/profilepics/" . $_SESSION["SESS_PROFILE_PIC"]; //if the profile picture session variable is set, then it will be displayed
-    
-}
-else{
-    $picture = "images/profilepics/default.jfif"; //if it is not set, then the default image will display
+if(isset($_SESSION["USER_INFO"])){
+    $u = $_SESSION["USER_INFO"];
+    $picName = User::GetProfilePic($u->userID);
+    $picture = "images/profilepics/" . $picName; 
 }
 
 echo "<nav class=\"navbar navbar-toggleable-md navbar-inverse bg-inverse fixed-top\">

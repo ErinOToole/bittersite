@@ -1,9 +1,13 @@
 
-<?php session_start();?>
 <?php
-if(!isset($_SESSION["SESS_MEMBER_ID"])){
+include("includes/classes/user.php");
+include("includes/classes/tweet.php");
+$u = $_SESSION["USER_INFO"];
+
+if(!isset($_SESSION["USER_INFO"])){
   header("Location: index.php");  
 }
+//get the profile picture from session variables and display it
 
 ?>
 <!DOCTYPE html>
@@ -64,12 +68,13 @@ if(!isset($_SESSION["SESS_MEMBER_ID"])){
 			<div class="col-md-3">
 				<div class="mainprofile img-rounded">
 				<div class="bold">
-				<img class="bannericons" src="">
-				<a href="userpage.php?user_id=">Jimmy Jones</a><BR></div>
+				<img class="bannericons" src=<?php echo "images/profilepics/" . User::GetProfilePic($u->userID) ?>>
+                                
+				<a href="userpage.php?user_id="><?php echo '<a href="index.php">' . $u->firstName. " " . $u->lastName . '</a>'?></a><BR></div>
 				<table>
 				<tr><td>
 				tweets</td><td>following</td><td>followers</td></tr>
-				<tr><td>0</td><td>0</td><td>0</td>
+				<tr><td><?php Tweet::GetNoOfTweets($u->userID) ?></td><td><?php User::GetNoOfFollowing($u->userID) ?></td><td><?php User::GetNoOfFollowers($u->userID) ?></td>
 				</tr></table><BR><BR><BR><BR><BR>
 				</div><BR><BR>
 				<div class="trending img-rounded">
@@ -96,7 +101,7 @@ if(!isset($_SESSION["SESS_MEMBER_ID"])){
 				<div class="bold">Who to Troll?<BR></div>
                                 <!--Include file that dynamically echos out the users to follow -->
                                 <?php include ("followers.php");?>
-                                                                                           	
+                                <BR>                                                         	
 				</div>
 				<!--don't need this div for now 
 				<div class="trending img-rounded">
