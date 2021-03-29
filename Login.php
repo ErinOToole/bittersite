@@ -30,7 +30,7 @@
     <link href="includes/bootstrap.min.css" rel="stylesheet">
 
     <!-- Custom styles for this template -->
-    <link href="includes/starter-template.css" rel="stylesheet">
+    <link href="includes/styletemplate.css" rel="stylesheet">
 	<!-- Bootstrap core JavaScript-->
     <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
 	

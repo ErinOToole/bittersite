@@ -1,6 +1,8 @@
 <?php
 require_once('../fedex-common.php');
-
+if(isset($_GET["postalCode"])){
+    $postalCode = $_GET["postalCode"];
+}
 $newline = "<br />";
 //Please include and reference in $path_to_wsdl variable.
 $path_to_wsdl = "../wsdl/CountryService/CountryService_v5.wsdl";
@@ -33,7 +35,7 @@ $request['Version'] = array(
 );
 
 $request['Address'] = array(
-	'PostalCode' => 'E3B2X9',
+	'PostalCode' => $postalCode,
 	'CountryCode' => 'CA'
 );
 

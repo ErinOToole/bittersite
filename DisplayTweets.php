@@ -1,5 +1,5 @@
 <?php
-$u=$_SESSION["USER_INFO"];
-Tweet::DisplayTweets($u);
+//calls the DisplayTweets method from the Tweet class, using the object held in session variables
+Tweet::DisplayTweets($_SESSION["USER_INFO"]);
 ?>
 

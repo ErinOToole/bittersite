@@ -14,7 +14,7 @@ and open the template in the editor.
             <title>Contact Us</title>
         
         <link href="includes/bootstrap.min.css" rel="stylesheet">
-        <link href="includes/starter-template.css" rel="stylesheet">
+        <link href="includes/styletemplate.css" rel="stylesheet">
     </head>
     <body>
         <?php include("Includes/header.php");?>

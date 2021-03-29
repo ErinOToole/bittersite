@@ -1,7 +1,7 @@
 <?php
 if(isset($_SESSION["USER_INFO"])){
-    $u = $_SESSION["USER_INFO"];
-    $picName = User::GetProfilePic($u->userID);
+    //grabs the profile picture of the user using the user object that is present in session variables
+    $picName = User::GetProfilePic($_SESSION["USER_INFO"]);
     $picture = "images/profilepics/" . $picName; 
 }
 
@@ -22,11 +22,11 @@ echo "<nav class=\"navbar navbar-toggleable-md navbar-inverse bg-inverse fixed-t
 			<img class=\"bannericons\" src=\"images/lightning.png\">Moments</a>
           </li>
 		  <li class=\"nav-item\">
-            <a class=\"nav-link\" href=\"#\">
+            <a class=\"nav-link\" href=\"Notifications.php\">
 			<img class=\"bannericons\" src=\"images/bell.png\">Notifications</a>
           </li>
 		  <li class=\"nav-item\">
-            <a class=\"nav-link\" href=\"#\">
+            <a class=\"nav-link\" href=\"directmessage.php\">
 			<img class=\"bannericons\" src=\"images/messages.png\">Messages</a>
           </li>
           <li>
@@ -50,8 +50,8 @@ echo "<nav class=\"navbar navbar-toggleable-md navbar-inverse bg-inverse fixed-t
               
             </div>
           </li>
-        <form class=\"form-inline my-2 my-lg-0\" action=\"search.php\">
-          <input class=\"form-control mr-sm-2\" type=\"text\" placeholder=\"Search\">
+        <form class=\"form-inline my-2 my-lg-0\" method=\"POST\" action=\"search.php\">
+          <input class=\"form-control mr-sm-2\" type=\"text\" id=\"search\" name=\"search\" placeholder=\"Search\">
           <button class=\"btn btn-outline-success my-2 my-sm-0\" type=\"submit\">Search</button>
         </form>
       </div>

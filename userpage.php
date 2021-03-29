@@ -1,10 +1,13 @@
 <?php
+//basically just made it so userpage shows the basic stats for whatever user's name or picture you click on
 include("includes/classes/user.php");
 include("includes/classes/tweet.php");
+$u = $_SESSION["USER_INFO"];
 if(isset($_GET["userID"])){
     User::FindUser($_GET["userID"]);
     $up = $_SESSION["USERPAGE_INFO"];
 }
+
 ?>
 
 <!DOCTYPE html>
@@ -22,7 +25,7 @@ if(isset($_GET["userID"])){
     <link href="includes/bootstrap.min.css" rel="stylesheet">
 
     <!-- Custom styles for this template -->
-    <link href="includes/starter-template.css" rel="stylesheet">
+    <link href="includes/styletemplate.css" rel="stylesheet">
 	<!-- Bootstrap core JavaScript-->
     <script src="https://code.jquery.com/jquery-1.10.2.js" ></script>
 	
@@ -37,23 +40,26 @@ if(isset($_GET["userID"])){
 			<div class="col-md-3">
 				<div class="mainprofile img-rounded">
 				<div class="bold">
-				<img class="bannericons" src=<?php echo "images/profilepics/" . User::GetProfilePic($up->userID) ?>>
+				<img class="bannericons" src=<?php echo "images/profilepics/" . User::GetProfilePic($up) ?>>
 				<?php echo $up->firstName . " " . $up->lastName?><BR></div>
 				<table>
 				<tr><td>
 				tweets</td><td>following</td><td>followers</td></tr>
 				<tr><td><?php Tweet::GetNoOfTweets($up->userID) ?></td><td><?php User::GetNoOfFollowing($up->userID)?></td><td><?php User::GetNoOfFollowers($up->userID) ?></td>
 				</tr></table>
-				<img class="icon" src="images/location_icon.jpg"><?php echo $up->location?>
+				<img class="icon" src="images/location_icon.jpg"><?php echo $up->province?>
 				<div class="bold">Member Since:</div>
 				<div><?php $date = date_create($up->dateAdded); echo date_format($date, "m/d/Y") ?></div>
 				</div><BR><BR>
 				
 				<div class="trending img-rounded">
-				<div class="bold">0 &nbsp;Followers you know<BR>
-				
-				</div>
-				</div>
+                                    
+				<?php echo User::GetFollowersInCommon($u->userID, $up->userID)?>
+                                        
+                                    
+                                    
+                                   
+                                </div><BR>
 				
 			</div>
 			<div class="col-md-6">
@@ -61,12 +67,13 @@ if(isset($_GET["userID"])){
 					
 				</div>
 				<div class="img-rounded">
-				
+				<?php echo Tweet::GetTweetsByUser($up) ?>
 				</div>
 			</div>
 			<div class="col-md-3">
 				<div class="whoToTroll img-rounded">
 				<div class="bold">Who to Troll?<BR></div>
+                                <?php include ("followers.php");?>
 								
 				
 				</div><BR>

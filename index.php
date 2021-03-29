@@ -5,10 +5,9 @@ include("includes/classes/tweet.php");
 $u = $_SESSION["USER_INFO"];
 
 if(!isset($_SESSION["USER_INFO"])){
-  header("Location: index.php");  
+  header("Location: index.php");
+//one session variable that is a user object of the user who is logged in  
 }
-//get the profile picture from session variables and display it
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -32,7 +31,7 @@ if(!isset($_SESSION["USER_INFO"])){
     <link href="includes/bootstrap.min.css" rel="stylesheet">
 
     <!-- Custom styles for this template -->
-    <link href="includes/starter-template.css" rel="stylesheet">
+    <link href="includes/styletemplate.css" rel="stylesheet">
 	<!-- Bootstrap core JavaScript-->
     <script src="https://code.jquery.com/jquery-1.10.2.js" ></script>
 	
@@ -68,7 +67,7 @@ if(!isset($_SESSION["USER_INFO"])){
 			<div class="col-md-3">
 				<div class="mainprofile img-rounded">
 				<div class="bold">
-				<img class="bannericons" src=<?php echo "images/profilepics/" . User::GetProfilePic($u->userID) ?>>
+				<img class="bannericons" src=<?php echo "images/profilepics/" . User::GetProfilePic($u) ?>>
                                 
 				<a href="userpage.php?user_id="><?php echo '<a href="index.php">' . $u->firstName. " " . $u->lastName . '</a>'?></a><BR></div>
 				<table>
@@ -110,7 +109,7 @@ if(!isset($_SESSION["USER_INFO"])){
 			</div>
 		</div> <!-- end row -->
     </div><!-- /.container -->
-
+ 
 	
 
     <!-- Bootstrap core JavaScript
